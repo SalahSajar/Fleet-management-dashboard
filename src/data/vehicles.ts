@@ -1,0 +1,267 @@
+export type VehicleStatus = 'available' | 'rented' | 'maintenance' | 'overdue'
+
+export interface Vehicle {
+  id: string
+  name: string
+  model: string
+  year: number
+  plate: string
+  status: VehicleStatus
+  branch: string
+  fuelType: string
+  mileage: number
+  lastService: string
+  nextServiceDue: string
+  insuranceExpiry: string
+  dailyRate: number
+  image: string
+  currentClient?: string
+  returnDate?: string
+  overdueBy?: number
+  maintenanceNote?: string
+}
+
+export const vehicles: Vehicle[] = [
+  {
+    id: 'v-001',
+    name: 'Dacia Logan',
+    model: 'Logan 1.5 dCi',
+    year: 2021,
+    plate: '12345-A-1',
+    status: 'available',
+    branch: 'Casablanca Hub',
+    fuelType: 'Diesel',
+    mileage: 38420,
+    lastService: '10 Mars 2026',
+    nextServiceDue: '10 Juin 2026',
+    insuranceExpiry: '31 Décembre 2026',
+    dailyRate: 300,
+    image: 'https://images.unsplash.com/photo-1697461132197-64aba5a4d48b?q=80&w=400&auto=format&fit=crop',
+  },
+  {
+    id: 'v-002',
+    name: 'Renault Clio',
+    model: 'Clio 1.5 dCi',
+    year: 2022,
+    plate: '67890-B-2',
+    status: 'rented',
+    branch: 'Casablanca Airport',
+    fuelType: 'Diesel',
+    mileage: 45230,
+    lastService: '12 Mars 2026',
+    nextServiceDue: '12 Juin 2026',
+    insuranceExpiry: '31 Décembre 2026',
+    dailyRate: 350,
+    image: 'https://images.unsplash.com/photo-1609521263047-f8f205293f24?w=400&h=250&fit=crop',
+    currentClient: 'Mohammed Alami',
+    returnDate: '15 Mai 2026',
+  },
+  {
+    id: 'v-003',
+    name: 'Hyundai i10',
+    model: 'i10 1.2 MT',
+    year: 2021,
+    plate: '11223-C-3',
+    status: 'maintenance',
+    branch: 'Casablanca Hub',
+    fuelType: 'Essence',
+    mileage: 29870,
+    lastService: '05 Février 2026',
+    nextServiceDue: '05 Mai 2026',
+    insuranceExpiry: '30 Juin 2026',
+    dailyRate: 250,
+    image: 'https://images.unsplash.com/photo-1592805144716-feeccccef5ac?w=400&h=250&fit=crop',
+    maintenanceNote: 'Engine Check Required',
+    maintenanceNoteDesc: "Engine is about to blow up run, run for your life you little shit, you're about to die"
+  },
+  {
+    id: 'v-004',
+    name: 'Dacia Duster',
+    model: 'Duster 1.6 SCe',
+    year: 2022,
+    plate: '44556-D-4',
+    status: 'overdue',
+    branch: 'Casablanca Airport',
+    fuelType: 'Essence',
+    mileage: 52100,
+    lastService: '20 Janvier 2026',
+    nextServiceDue: '20 Avril 2026',
+    insuranceExpiry: '31 Décembre 2026',
+    dailyRate: 400,
+    image: 'https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=400&h=250&fit=crop',
+    currentClient: 'Fatima Benali',
+    returnDate: '11 Mai 2026',
+    overdueBy: 2,
+  },
+  {
+    id: 'v-005',
+    name: 'Renault Kangoo',
+    model: 'Kangoo 1.5 dCi',
+    year: 2020,
+    plate: '78901-E-5',
+    status: 'available',
+    branch: 'Rabat Ville',
+    fuelType: 'Diesel',
+    mileage: 61200,
+    lastService: '15 Avril 2026',
+    nextServiceDue: '15 Juillet 2026',
+    insuranceExpiry: '28 Février 2027',
+    dailyRate: 400,
+    image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=250&fit=crop',
+  },
+  {
+    id: 'v-006',
+    name: 'Peugeot 208',
+    model: '208 1.2 PureTech',
+    year: 2023,
+    plate: '23456-F-6',
+    status: 'rented',
+    branch: 'Casablanca Airport',
+    fuelType: 'Essence',
+    mileage: 18540,
+    lastService: '01 Avril 2026',
+    nextServiceDue: '01 Juillet 2026',
+    insuranceExpiry: '31 Décembre 2026',
+    dailyRate: 350,
+    image: 'https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?w=400&h=250&fit=crop',
+    currentClient: 'Yassine El Fassi',
+    returnDate: '20 Mai 2026',
+  },
+  {
+    id: 'v-007',
+    name: 'Dacia Sandero',
+    model: 'Sandero 1.0 TCe',
+    year: 2022,
+    plate: '34567-G-7',
+    status: 'available',
+    branch: 'Marrakech Branch',
+    fuelType: 'Essence',
+    mileage: 24310,
+    lastService: '10 Avril 2026',
+    nextServiceDue: '10 Juillet 2026',
+    insuranceExpiry: '30 Novembre 2026',
+    dailyRate: 280,
+    image: 'https://images.unsplash.com/photo-1590362891991-f776e747a588?w=400&h=250&fit=crop',
+  },
+  {
+    id: 'v-008',
+    name: 'Hyundai Accent',
+    model: 'Accent 1.4 MT',
+    year: 2021,
+    plate: '45678-H-8',
+    status: 'rented',
+    branch: 'Rabat Ville',
+    fuelType: 'Essence',
+    mileage: 33670,
+    lastService: '22 Mars 2026',
+    nextServiceDue: '22 Juin 2026',
+    insuranceExpiry: '31 Décembre 2026',
+    dailyRate: 300,
+    image: 'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=400&h=250&fit=crop',
+    currentClient: 'Sofia Alaoui',
+    returnDate: '22 Mai 2026',
+  },
+  {
+    id: 'v-009',
+    name: 'Citroën C3',
+    model: 'C3 1.2 PureTech',
+    year: 2022,
+    plate: '56789-I-9',
+    status: 'available',
+    branch: 'Casablanca Hub',
+    fuelType: 'Essence',
+    mileage: 21450,
+    lastService: '05 Mai 2026',
+    nextServiceDue: '05 Août 2026',
+    insuranceExpiry: '31 Décembre 2026',
+    dailyRate: 320,
+    image: 'https://images.unsplash.com/photo-1494976388531-d1058494cdd8?w=400&h=250&fit=crop',
+  },
+  {
+    id: 'v-010',
+    name: 'Toyota Yaris',
+    model: 'Yaris 1.5 Hybrid',
+    year: 2023,
+    plate: '67890-J-10',
+    status: 'available',
+    branch: 'Casablanca Airport',
+    fuelType: 'Hybrid',
+    mileage: 12300,
+    lastService: '01 Mai 2026',
+    nextServiceDue: '01 Août 2026',
+    insuranceExpiry: '31 Mars 2027',
+    dailyRate: 420,
+    image: 'https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?w=400&h=250&fit=crop',
+  },
+  {
+    id: 'v-011',
+    name: 'Volkswagen Polo',
+    model: 'Polo 1.0 TSI',
+    year: 2022,
+    plate: '78901-K-11',
+    status: 'rented',
+    branch: 'Rabat Ville',
+    fuelType: 'Essence',
+    mileage: 28900,
+    lastService: '15 Mars 2026',
+    nextServiceDue: '15 Juin 2026',
+    insuranceExpiry: '31 Décembre 2026',
+    dailyRate: 380,
+    image: 'https://images.unsplash.com/photo-1471444928139-48c5bf5173f8?w=400&h=250&fit=crop',
+    currentClient: 'Jalal Mansouri',
+    returnDate: '19 Mai 2026',
+  },
+  {
+    id: 'v-012',
+    name: 'Ford Fiesta',
+    model: 'Fiesta 1.1 Ti-VCT',
+    year: 2021,
+    plate: '89012-L-12',
+    status: 'maintenance',
+    branch: 'Marrakech Branch',
+    fuelType: 'Essence',
+    mileage: 41200,
+    lastService: '10 Février 2026',
+    nextServiceDue: '10 Mai 2026',
+    insuranceExpiry: '30 Septembre 2026',
+    dailyRate: 320,
+    image: 'https://images.unsplash.com/photo-1580274455191-1c62238fa333?w=400&h=250&fit=crop',
+    maintenanceNote: 'Brake Pad Replacement',
+  },
+]
+
+export const vehicleStatuses = {
+  available: {
+    bg: "#ff5858",
+    primaryTextColor: "#efefef"
+  }, 
+  maintenance: {
+    bg: "#efefef",
+    primaryTextColor: "#9F403D"
+  }, 
+  overdue: {
+    bg: "#9F403D",
+    primaryTextColor: "#f2ebeb"
+  }, 
+  rented: {
+    bg: "#c9f5ab",
+    color: "#fefefe",
+    // #78350F
+    primaryTextColor: "#315b13",
+    secondaryTextColor: "#3e7e10"
+  }, 
+}
+
+export const vehicleStats = {
+  total: 42,
+  available: 12,
+  rented: 28,
+  maintenance: 2,
+}
+
+export const branches = [
+  { id: 'b-001', name: 'Casablanca Hub', type: 'Main Branch', vehicles: 12 },
+  { id: 'b-002', name: 'Casablanca Airport', type: 'Branch', vehicles: 8 },
+  { id: 'b-003', name: 'Rabat Ville', type: 'Branch', vehicles: 5 },
+  { id: 'b-004', name: 'Marrakech Branch', type: 'Branch', vehicles: 3 },
+]
