@@ -31,7 +31,7 @@ export default function FleetPage(){
 
 	const [vehicleWithQuickOptionsBlockOpen, setVehicleWithQuickOptionsBlockOpen] = useState<string | null>(null);
 
-	const [activeFleetFilteringOption, setActiveFleetFilteringOption] = useState<FilteingOptions>(statusParam && FilteingOptionsArr.includes(statusParam.toLowerCase()) ? statusParam.toLowerCase() : "all");
+	const [activeFleetFilteringOption, setActiveFleetFilteringOption] = useState<FilteingOptions>("all");
 	const [activeFleetFilteringOption__Highlighter_Width, setActiveFleetFilteringOption__Highlighter_Width] = useState<number>(0);
 	const [activeFleetFilteringOption__Highlighter_Offset, setActiveFleetFilteringOption__Highlighter_Offset] = useState<number>(0);
 
@@ -88,6 +88,11 @@ export default function FleetPage(){
 		detectActiveFleetFilteringOptionSpecs__FUNC(activeFleetFilteringOption__EL);
 	}, [activeFleetFilteringOption]);
 
+	useEffect(() => {
+		if(statusParam && FilteingOptionsArr.includes(statusParam.toLowerCase())){
+			setActiveFleetFilteringOption(statusParam.toLowerCase());
+		}
+	}, [])
 
 	return (
 		<Layout language={language} onLanguageChange={setLanguage} activeNavItem="fleet">
