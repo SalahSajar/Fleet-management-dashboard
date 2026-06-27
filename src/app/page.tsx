@@ -1,6 +1,7 @@
 'use client'
 
-import { useState } from 'react'
+import { useState } from 'react';
+import Link from "next/link"
 
 import {
   Car,
@@ -12,6 +13,7 @@ import {
 import Layout from '@/components/layout/Layout'
 import MetricCard from '@/components/dashboard/MetricCard'
 import VehicleCard from '@/components/dashboard/VehicleCard'
+// import {VerticalVehicleCard} from "@/components/fleet/VehicleCard";
 import ActivityItem from '@/components/dashboard/ActivityItem'
 import BookingItem from '@/components/dashboard/BookingItem'
 import RevenueChart from '@/components/dashboard/RevenueChart'
@@ -56,6 +58,14 @@ export default function DashboardPage() {
     },
   ];
 
+  const vehiclesCountPerStatus = {
+    all: vehicles.length,
+    available: (vehicles.filter(v => v.status === "available")).length,
+    rented: (vehicles.filter(v => v.status === "rented")).length,
+    overdue: (vehicles.filter(v => v.status === "overdue")).length,
+    maintenance: (vehicles.filter(v => v.status === "maintenance")).length,
+  }
+
   const revenueData = [
     { label: 'Monday', value: 1200, isToday: false, isProjected: false },
     { label: 'Tuesday', value: 1500, isToday: false, isProjected: false },
@@ -78,7 +88,8 @@ export default function DashboardPage() {
       {/* Metric Cards */}
       <div className="grid grid-cols-4 gap-4 mb-8">
         <MetricCard
-          value={vehicleStats.total}
+          value={vehiclesCountPerStatus.all}
+          // value={vehicleStats.total}
           label={t.totalFleet.toUpperCase()}
           icon={Car}
           borderColor="border-slate-300"
@@ -86,7 +97,8 @@ export default function DashboardPage() {
           iconColor="text-slate-600"
         />
         <MetricCard
-          value={vehicleStats.available}
+          value={vehiclesCountPerStatus.available}
+          // value={vehicleStats.available}
           label={t.availableNow.toUpperCase()}
           icon={CheckCircle}
           borderColor="border-green-400"
@@ -94,7 +106,8 @@ export default function DashboardPage() {
           iconColor="text-green-600"
         />
         <MetricCard
-          value={vehicleStats.rented}
+          value={vehiclesCountPerStatus.rented}
+          // value={vehicleStats.rented}
           label={t.currentlyRented.toUpperCase()}
           icon={Link2}
           borderColor="border-slate-300"
@@ -102,7 +115,8 @@ export default function DashboardPage() {
           iconColor="text-slate-600"
         />
         <MetricCard
-          value={vehicleStats.maintenance}
+          value={vehiclesCountPerStatus.maintenance}
+          // value={vehicleStats.maintenance}
           label={t.inMaintenance.toUpperCase()}
           icon={Wrench}
           borderColor="border-red-300"
@@ -117,12 +131,13 @@ export default function DashboardPage() {
           <h2 className="text-lg font-bold text-gray-900">
             {language === 'fr' ? 'Vehicle Logistics' : 'لوجستيات المركبات'}
           </h2>
-          <button className="text-sm text-slate-500 hover:text-slate-700 font-medium transition-colors">
+          <Link href="/fleet" className="text-sm text-slate-500 hover:text-slate-700 font-medium transition-colors">
             {t.viewAll} →
-          </button>
+          </Link>
         </div>
         <div className="grid grid-cols-4 gap-4">
-          {displayVehicles.map((vehicle) => <VehicleCard key={vehicle.id} vehicle={vehicle} language={language} />)}
+          {displayVehicles.map((v) =>  <VehicleCard key={v.id} vehicle={v} language={language} />)}
+          {/*{displayVehicles.map((vehicle) => <VerticalVehicleCard changeVehicleQuickOptionsState={id => setVehicleWithQuickOptionsBlockOpen(id)} vehicleWithOpenQCB={vehicleWithQuickOptionsBlockOpen} vehicleObj={vehicle} />)}*/}
         </div>
       </div>
 

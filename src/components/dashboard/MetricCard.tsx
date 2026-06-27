@@ -18,9 +18,7 @@ export default function MetricCard({
   iconColor,
 }: MetricCardProps) {
   return (
-    <div
-      className={`bg-white rounded-xl p-5 border-l-4 ${borderColor} flex items-center justify-between shadow-sm`}
-    >
+    <div className={`bg-white rounded-xl p-5 border-l-4 ${borderColor} flex items-center justify-between shadow-sm`}>
       <div>
         <p className="text-3xl font-bold text-gray-900">{value}</p>
         <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider mt-1">

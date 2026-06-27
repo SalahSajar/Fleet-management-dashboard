@@ -7,6 +7,14 @@
 :root {
   --background: #f8fafc;
   --foreground: #0f172a;
+
+  --light-gray: #D8ABAB;
+  
+  --main-purple: #172546;
+  --secondary-purple: #0f172a;
+
+  --light-blue: #DFEDF6;
+  --faintest-purple: #EFF6FB;
 }
 
 * {

@@ -2,23 +2,37 @@
 
 import { useState, useEffect, Fragment} from 'react';
 
-import {CirclePlus, LayoutGrid, TableProperties} from "lucide-react";
+import Link from "next/link";
+import {useSearchParams, useRouter, usePathname} from "next/navigation";
+
+import {CirclePlus, LayoutGrid, TableProperties, ChevronLeft, ChevronRight} from "lucide-react";
 
 import Layout from "@/components/layout/Layout";
-
 import {VerticalVehicleCard, HorizontalVehicleCard} from "@/components/fleet/VehicleCard";
+import VehiclesNavigationBar from "@/components/fleet/VehiclesNavigationBar"
 
 import {vehicles, TRANSLATIONS, STATUS_COLORS} from "@/data";
 
-type Language = 'fr' | 'ar';
 
+type Language = 'fr' | 'ar';
 type FilteingOptions = "all" | "available" | "rented" | "maintenance" | "overdue";
+const FilteingOptionsArr = ["all", "available", "rented", "maintenance", "overdue"];
+
+
+const VEHICLES_PER_PAGE = 8;
 
 
 export default function FleetPage(){
+	const pathname = usePathname();
+	const searchParams = useSearchParams();
+	const {replace} = useRouter();
+
+	const statusParam = searchParams.get("status");
+	const pageParam = searchParams.get("page");
+
 	const [vehicleWithQuickOptionsBlockOpen, setVehicleWithQuickOptionsBlockOpen] = useState<string | null>(null);
 
-	const [activeFleetFilteringOption, setActiveFleetFilteringOption] = useState<FilteingOptions>("all");
+	const [activeFleetFilteringOption, setActiveFleetFilteringOption] = useState<FilteingOptions>(statusParam && FilteingOptionsArr.includes(statusParam.toLowerCase()) ? statusParam.toLowerCase() : "all");
 	const [activeFleetFilteringOption__Highlighter_Width, setActiveFleetFilteringOption__Highlighter_Width] = useState<number>(0);
 	const [activeFleetFilteringOption__Highlighter_Offset, setActiveFleetFilteringOption__Highlighter_Offset] = useState<number>(0);
 
@@ -27,7 +41,14 @@ export default function FleetPage(){
 	const [language, setLanguage] = useState<Language>('fr');
 	const t = TRANSLATIONS[language];
 
+
 	const STATUS_NAMES = Object.keys(STATUS_COLORS);
+
+
+	const vehiclesOfThePage = activeFleetFilteringOption === "all" ? vehicles : vehicles.filter(v => v.status === activeFleetFilteringOption);
+
+	const totalPagesCount = Math.ceil(vehiclesOfThePage.length/VEHICLES_PER_PAGE);
+	const currentPage = isNaN(+pageParam) || +pageParam < 1 || +pageParam > totalPagesCount ? 1 : pageParam.includes(".") ? Math.floor(+pageParam) : +pageParam;
 
 	function detectActiveFleetFilteringOptionSpecs__FUNC(elm){
 		const activeOptionEl_SPECS = elm.getBoundingClientRect();
@@ -36,7 +57,7 @@ export default function FleetPage(){
 		setActiveFleetFilteringOption__Highlighter_Width(Math.ceil(activeOptionEl_SPECS.width));
 		setActiveFleetFilteringOption__Highlighter_Offset(Math.ceil(activeOptionEl_SPECS.left - filteringOptionsListEl__SPECS.left));
 	}
-	
+
 	function checkClickTagret__HANDLER(evt) {
 		const clickTarget = evt.target;
 		const activeVehicleQCB = document.querySelector(`.fleeVehicle__QUICK_CONTROLS__LIST[data-active=true]`);
@@ -47,15 +68,27 @@ export default function FleetPage(){
 		}
 	}
 
+	function formattingUrlQuery(page: string, status: string){
+		const params = new URLSearchParams(searchParams.toString());
+
+		if(page) {
+			params.set("page", page);
+			if(statusParam) params.set("status", statusParam);
+		};
+		if(status) {
+			params.set("status", status);
+			params.set("page", 1);
+		}
+
+		return `${pathname}?${params.toString()}`;
+	}
+
 	useEffect(() => {
 		const activeFleetFilteringOption__EL = document.querySelector(`.fleetFiltering__OPTION[data-option=${activeFleetFilteringOption}]`);
 
 		detectActiveFleetFilteringOptionSpecs__FUNC(activeFleetFilteringOption__EL);
 	}, [activeFleetFilteringOption]);
 
-	useEffect(() => {
-		console.log(`${+fleetOnTableDisplayView * 100}%`);
-	}, [fleetOnTableDisplayView])
 
 	return (
 		<Layout language={language} onLanguageChange={setLanguage} activeNavItem="fleet">
@@ -67,7 +100,7 @@ export default function FleetPage(){
 							<p className="fleet_header__DESC text-base text-gray-500 mt-1">Manage your vehicles and logistics from one central hub.</p>
 						</div>
 					</div>
-					<button className="fleet_header__CTA rounded-md bg-gray-500 hover:bg-[#596377] transition-colors">
+					<button className="fleet_header__CTA rounded-md bg-[#172546] hover:bg-[#0f172a] transition-colors">
 						<div className="fleet_headerCTA__CONTENT_WRAPPER flex items-center gap-2 py-[12px] px-[18px]">
 							<CirclePlus color="#fff" size={18} />
 							<span className="text-sm text-white font-semibold">Add Vehicle</span>
@@ -83,20 +116,22 @@ export default function FleetPage(){
 							<div className="fleet_filterByStatus__BLOCK w-fit">
 								<ul className="fleetFilteringOptions__LIST flex items-center mb-[15px] gap-x-[25px]">
 									<li data-option="all" className="fleetFiltering__OPTION">
-										<button onClick={(opt) => setActiveFleetFilteringOption("all")} className="selectFleetFilteringOption__BTN px-[5px] py-px">
+										<Link href={formattingUrlQuery(null, "all")} onClick={() => setActiveFleetFilteringOption("all")} className="selectFleetFilteringOption__BTN block px-[5px] py-px">
 											<div className="fleetFilteringOption__CONTENT_WRAPPER">
-												<span className={`fleetFilteringOption__NAME capitalize text-sm ${activeFleetFilteringOption === "all" ? "font-medium text-gray-900" : "font-normal text-gray-500"}`}>All (42)</span>
+												<span className={`fleetFilteringOption__NAME capitalize text-sm ${activeFleetFilteringOption === "all" ? "font-medium text-gray-900" : "font-normal text-gray-500"}`}>All ({vehicles.length})</span>
 											</div>
-										</button>
+										</Link>
 									</li>
 									{STATUS_NAMES.map(status => {
+										const vehiclesBasedOnStatus = vehicles.filter(vehicle => vehicle.status === status);
+
 										return (
 											<li data-option={status} className="fleetFiltering__OPTION">
-												<button onClick={() => setActiveFleetFilteringOption(status)} className="selectFleetFilteringOption__BTN px-[5px]">
+												<Link href={formattingUrlQuery(null, status)} onClick={() => setActiveFleetFilteringOption(status)} className="selectFleetFilteringOption__BTN block px-[5px]">
 													<div className="fleetFilteringOption__CONTENT_WRAPPER">
-														<span className={`fleetFilteringOption__NAME capitalize text-sm ${activeFleetFilteringOption === status ? "font-medium text-gray-900" : "font-normal text-gray-500"}`}>{status} (42)</span>
+														<span className={`fleetFilteringOption__NAME capitalize text-sm ${activeFleetFilteringOption === status ? "font-medium text-gray-900" : "font-normal text-gray-500"}`}>{status} ({vehiclesBasedOnStatus.length})</span>
 													</div>
-												</button>
+												</Link>
 											</li>
 										)
 									})}
@@ -127,13 +162,21 @@ export default function FleetPage(){
 						</div>
 					</div>
 
-					<div className="fleet_vehicles__BLOCK border-y border-gray-200">
+					<div className="fleetVehicles__DISPLAY_SECTION border-y border-gray-200">
 						<div className="fleet_vehicles__CONTENT_WRAPPER py-[32px]">
 							<ul className={`fleet_vehicles__LIST ${fleetOnTableDisplayView ? "flex flex-col" : "grid grid-cols-4"} gap-4`} >
-								{vehicles.map(vehicle => fleetOnTableDisplayView ? <HorizontalVehicleCard vehicleObj={vehicle} /> : <VerticalVehicleCard changeVehicleQuickOptionsState={id => setVehicleWithQuickOptionsBlockOpen(id)} vehicleWithOpenQCB={vehicleWithQuickOptionsBlockOpen} vehicleObj={vehicle} />)}
+								{[...vehiclesOfThePage].splice((currentPage-1)*VEHICLES_PER_PAGE, VEHICLES_PER_PAGE).map(vehicle => fleetOnTableDisplayView ? <HorizontalVehicleCard vehicleObj={vehicle} changeVehicleQuickOptionsState={id => setVehicleWithQuickOptionsBlockOpen(id)} vehicleWithOpenQCB={vehicleWithQuickOptionsBlockOpen} /> : <VerticalVehicleCard changeVehicleQuickOptionsState={id => setVehicleWithQuickOptionsBlockOpen(id)} vehicleWithOpenQCB={vehicleWithQuickOptionsBlockOpen} vehicleObj={vehicle} />)}
 							</ul>
 						</div>
 					</div>
+
+					{totalPagesCount > 1 ? <VehiclesNavigationBar 
+						vehiclesOfThePage={vehiclesOfThePage} 
+						totalPagesCount={totalPagesCount} 
+						currentPage={currentPage} 
+						formattingUrlQuery={formattingUrlQuery} 
+						VEHICLES_PER_PAGE={VEHICLES_PER_PAGE}
+					/> : null}
 				</div>
 			</div>
 		</Layout>
