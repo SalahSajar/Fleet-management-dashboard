@@ -1,5 +1,6 @@
+import {Fragment} from "react"
+
 import Link from "next/link";
-import {useRouter, useSearchParams, usePathname} from "next/navigation";
 
 import {ChevronLeft, ChevronRight} from "lucide-react";
 
@@ -36,14 +37,14 @@ const VehiclesNavigationBar = ({vehiclesOfThePage, totalPagesCount, currentPage,
 							</li>
 								
 							{midPagesArr.length <= 3 ? midPagesArr.map(pg => (
-								<li className={`fleetVehicles_navigation__LINK rounded-md aspect-square ${currentPage === pg ? "bg-[--main-purple] hover:bg-[--secondary-purple] text-white" : "bg-[--background] hover:bg-[--faintest-purple] text-[--main-purple]"} transition-colors grid w-[45px]`}>
+								<li key={pg} className={`fleetVehicles_navigation__LINK rounded-md aspect-square ${currentPage === pg ? "bg-[--main-purple] hover:bg-[--secondary-purple] text-white" : "bg-[--background] hover:bg-[--faintest-purple] text-[--main-purple]"} transition-colors grid w-[45px]`}>
 									<Link href={formattingUrlQuery(pg, null)} className="fleetVehicles_navigation__PAGE_LINK grid place-items-center">
 										<span className="fleetVehicles_navigation__PAGE_INDEX font-semibold">{pg}</span>
 									</Link>
 								</li>
 							)) : [...midPagesArr].splice(0, 2).includes(currentPage) || inFirstPage ? <Fragment>
 									{[...midPagesArr].splice(0, 3).map(pg => (
-										<li className={`fleetVehicles_navigation__LINK rounded-md aspect-square ${currentPage === pg ? "bg-[--main-purple] hover:bg-[--secondary-purple] text-white" : "bg-[--background] hover:bg-[--faintest-purple] text-[--main-purple]"} transition-colors grid w-[45px]`}>
+										<li key={pg} className={`fleetVehicles_navigation__LINK rounded-md aspect-square ${currentPage === pg ? "bg-[--main-purple] hover:bg-[--secondary-purple] text-white" : "bg-[--background] hover:bg-[--faintest-purple] text-[--main-purple]"} transition-colors grid w-[45px]`}>
 											<Link href={formattingUrlQuery(pg, null)} className="fleetVehicles_navigation__PAGE_LINK grid place-items-center">
 												<span className="fleetVehicles_navigation__PAGE_INDEX font-semibold">{pg}</span>
 											</Link>
@@ -62,7 +63,7 @@ const VehiclesNavigationBar = ({vehiclesOfThePage, totalPagesCount, currentPage,
 										</div>
 									</li>
 									{[...midPagesArr].splice(-3, 3).map(pg => (
-										<li className={`fleetVehicles_navigation__LINK rounded-md aspect-square ${currentPage === pg ? "bg-[--main-purple] hover:bg-[--secondary-purple] text-white" : "bg-[--background] hover:bg-[--faintest-purple] text-[--main-purple]"} transition-colors grid w-[45px]`}>
+										<li key={pg} className={`fleetVehicles_navigation__LINK rounded-md aspect-square ${currentPage === pg ? "bg-[--main-purple] hover:bg-[--secondary-purple] text-white" : "bg-[--background] hover:bg-[--faintest-purple] text-[--main-purple]"} transition-colors grid w-[45px]`}>
 											<Link href={formattingUrlQuery(pg, null)} className="fleetVehicles_navigation__PAGE_LINK grid place-items-center">
 												<span className="fleetVehicles_navigation__PAGE_INDEX font-semibold">{pg}</span>
 											</Link>
@@ -76,7 +77,7 @@ const VehiclesNavigationBar = ({vehiclesOfThePage, totalPagesCount, currentPage,
 										</div>
 									</li>
 									{[...midPagesArr].splice(midPagesArr.indexOf(currentPage)-1, 3).map(pg => (
-										<li className={`fleetVehicles_navigation__LINK rounded-md aspect-square ${currentPage === pg ? "bg-[--main-purple] hover:bg-[--secondary-purple] text-white" : "bg-[--background] hover:bg-[--faintest-purple] text-[--main-purple]"} transition-colors grid w-[45px]`}>
+										<li key={pg} className={`fleetVehicles_navigation__LINK rounded-md aspect-square ${currentPage === pg ? "bg-[--main-purple] hover:bg-[--secondary-purple] text-white" : "bg-[--background] hover:bg-[--faintest-purple] text-[--main-purple]"} transition-colors grid w-[45px]`}>
 											<Link href={formattingUrlQuery(pg, null)} className="fleetVehicles_navigation__PAGE_LINK grid place-items-center">
 												<span className="fleetVehicles_navigation__PAGE_INDEX font-semibold">{pg}</span>
 											</Link>

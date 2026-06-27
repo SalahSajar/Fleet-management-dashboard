@@ -1,10 +1,10 @@
-import {MapPin, EllipsisVertical} from "lucide-react";
+import {MapPin} from "lucide-react";
 import {Fragment} from "react"
 
 import Image from "next/image";
 import Link from "next/link";
 
-import {MaintenanceReport, OverdueReport, RentedReport, AvailableCard} from "@/components/fleet/VehicleReports";
+import {MaintenanceReport, OverdueReport, RentedReport} from "@/components/fleet/VehicleReports";
 import QuickControls from "@/components/fleet/QuickControls";
 
 import {vehicleStatuses} from "@/data";
@@ -40,7 +40,7 @@ export const VerticalVehicleCard = ({vehicleObj, vehicleWithOpenQCB, changeVehic
 								<div className="fleetVehicle_plateDetails__CONTAINER px-[10px] py-[5px] flex justify-between gap-[10px]">
 									{vehiclePlateDetails.map((detail, idx) => {
 										return (
-											<Fragment>
+											<Fragment key={idx}>
 												<span className="fleetVehicle_plate__DETAIL text-sm text-gray-900">{detail}</span>
 												{idx+1 < vehiclePlateDetails.length && <div className="fleetVehicle_plateDetails__SEPERATOR w-px bg-gray-200"></div>}
 											</Fragment>
@@ -114,7 +114,7 @@ export const HorizontalVehicleCard = ({vehicleObj, vehicleWithOpenQCB, changeVeh
 								<div className="fleetVehicle_plateDetails__CONTAINER px-[10px] py-[5px] flex justify-between gap-[10px]">
 									{vehiclePlateDetails.map((detail, idx) => {
 										return (
-											<Fragment>
+											<Fragment key={idx}>
 												<span className="fleetVehicle_plate__DETAIL text-sm text-gray-900">{detail}</span>
 												{idx+1 < vehiclePlateDetails.length && <div className="fleetVehicle_plateDetails__SEPERATOR w-px bg-gray-200"></div>}
 											</Fragment>
@@ -141,7 +141,7 @@ export const HorizontalVehicleCard = ({vehicleObj, vehicleWithOpenQCB, changeVeh
 				
 
 				{/* --- Fleet Vehicle Quick Controls Btn  --- */}
-				<QuickControls cardType="tableDisplay" vehicleID={vehicleObj.id} changeVehicleQuickOptionsState={() => changeVehicleQuickOptionsState(vehicleObj.id)} active={activeQC} />
+				<QuickControls cardType="tableDisplay" changeVehicleQuickOptionsState={() => changeVehicleQuickOptionsState(vehicleObj.id)} active={activeQC} />
 				{/**************************************/}
 			</div>
 		</li>

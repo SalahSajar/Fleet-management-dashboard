@@ -22,7 +22,7 @@ import TopClients from '@/components/dashboard/TopClients'
 import {
   vehicles,
   clients,
-  vehicleStats,
+  // vehicleStats,
   TRANSLATIONS,
 } from '@/data'
 

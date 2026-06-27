@@ -1,7 +1,7 @@
 import Image from "next/image";
 
-import { MapPin, AlertTriangle, Wrench } from 'lucide-react';
-import { Vehicle, VehicleStatus, vehicleStatuses } from '@/data/vehicles';
+import { MapPin, Wrench } from 'lucide-react';
+import { Vehicle, vehicleStatuses } from '@/data/vehicles';
 
 interface VehicleCardProps {
   vehicle: Vehicle

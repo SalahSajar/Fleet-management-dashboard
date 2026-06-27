@@ -1,11 +1,11 @@
 'use client';
 
-import { useState, useEffect, Fragment} from 'react';
+import { useState, useEffect} from 'react';
 
 import Link from "next/link";
-import {useSearchParams, useRouter, usePathname} from "next/navigation";
+import {useSearchParams, usePathname} from "next/navigation";
 
-import {CirclePlus, LayoutGrid, TableProperties, ChevronLeft, ChevronRight} from "lucide-react";
+import {CirclePlus, LayoutGrid, TableProperties} from "lucide-react";
 
 import Layout from "@/components/layout/Layout";
 import {VerticalVehicleCard, HorizontalVehicleCard} from "@/components/fleet/VehicleCard";
@@ -25,7 +25,6 @@ const VEHICLES_PER_PAGE = 8;
 export default function FleetPage(){
 	const pathname = usePathname();
 	const searchParams = useSearchParams();
-	const {replace} = useRouter();
 
 	const statusParam = searchParams.get("status");
 	const pageParam = searchParams.get("page");
@@ -39,7 +38,7 @@ export default function FleetPage(){
 	const [fleetOnTableDisplayView, setFleetOnTableDisplayView] = useState<boolean>(false);
 
 	const [language, setLanguage] = useState<Language>('fr');
-	const t = TRANSLATIONS[language];
+	// const t = TRANSLATIONS[language];
 
 
 	const STATUS_NAMES = Object.keys(STATUS_COLORS);
@@ -126,7 +125,7 @@ export default function FleetPage(){
 										const vehiclesBasedOnStatus = vehicles.filter(vehicle => vehicle.status === status);
 
 										return (
-											<li data-option={status} className="fleetFiltering__OPTION">
+											<li key={status} data-option={status} className="fleetFiltering__OPTION">
 												<Link href={formattingUrlQuery(null, status)} onClick={() => setActiveFleetFilteringOption(status)} className="selectFleetFilteringOption__BTN block px-[5px]">
 													<div className="fleetFilteringOption__CONTENT_WRAPPER">
 														<span className={`fleetFilteringOption__NAME capitalize text-sm ${activeFleetFilteringOption === status ? "font-medium text-gray-900" : "font-normal text-gray-500"}`}>{status} ({vehiclesBasedOnStatus.length})</span>
@@ -165,7 +164,7 @@ export default function FleetPage(){
 					<div className="fleetVehicles__DISPLAY_SECTION border-y border-gray-200">
 						<div className="fleet_vehicles__CONTENT_WRAPPER py-[32px]">
 							<ul className={`fleet_vehicles__LIST ${fleetOnTableDisplayView ? "flex flex-col" : "grid grid-cols-4"} gap-4`} >
-								{[...vehiclesOfThePage].splice((currentPage-1)*VEHICLES_PER_PAGE, VEHICLES_PER_PAGE).map(vehicle => fleetOnTableDisplayView ? <HorizontalVehicleCard vehicleObj={vehicle} changeVehicleQuickOptionsState={id => setVehicleWithQuickOptionsBlockOpen(id)} vehicleWithOpenQCB={vehicleWithQuickOptionsBlockOpen} /> : <VerticalVehicleCard changeVehicleQuickOptionsState={id => setVehicleWithQuickOptionsBlockOpen(id)} vehicleWithOpenQCB={vehicleWithQuickOptionsBlockOpen} vehicleObj={vehicle} />)}
+								{[...vehiclesOfThePage].splice((currentPage-1)*VEHICLES_PER_PAGE, VEHICLES_PER_PAGE).map(vehicle => fleetOnTableDisplayView ? <HorizontalVehicleCard key={vehicle.id} vehicleObj={vehicle} changeVehicleQuickOptionsState={id => setVehicleWithQuickOptionsBlockOpen(id)} vehicleWithOpenQCB={vehicleWithQuickOptionsBlockOpen} /> : <VerticalVehicleCard key={vehicle.id} changeVehicleQuickOptionsState={id => setVehicleWithQuickOptionsBlockOpen(id)} vehicleWithOpenQCB={vehicleWithQuickOptionsBlockOpen} vehicleObj={vehicle} />)}
 							</ul>
 						</div>
 					</div>

@@ -7,7 +7,7 @@ import {vehicleStatuses} from "@/data";
 // import {} from "lucide-react";
 
 export const MaintenanceReport = ({vehicleObj}) => {
-	// const status = "maintenance";
+	
 	return (
 		<VehicleReport status={vehicleObj.status}>
 			<div className="vehicleMaintenanceReport__CONTENT_WRAPPER flex items-start gap-[10px]">
@@ -59,11 +59,3 @@ export const RentedReport = ({vehicleObj}) => {
 		</VehicleReport>
 	)
 }
-
-// export const AvailableCard = () => {
-// 	return (
-// 		<VehicleReport>
-// 			<span>This is a Vehicle Report Card</span>
-// 		</VehicleReport>
-// 	)
-// }

@@ -1,8 +1,8 @@
-import {useState, useEffect} from "react";
+// import {useState, useEffect} from "react";
 
 import {MapPin, EllipsisVertical} from "lucide-react";
 
-const QuickControls = ({active, cardType,vehicleID, changeVehicleQuickOptionsState}) => {
+const QuickControls = ({active, cardType, changeVehicleQuickOptionsState}) => {
 	// const [vehicleQuickControlsIsOpen, setVehicleQuickControlsStatus] = useState(false);
 
 	return (
