@@ -11,7 +11,7 @@ import Layout from "@/components/layout/Layout";
 import {VerticalVehicleCard, HorizontalVehicleCard} from "@/components/fleet/VehicleCard";
 import VehiclesNavigationBar from "@/components/fleet/VehiclesNavigationBar"
 
-import {vehicles, TRANSLATIONS, STATUS_COLORS} from "@/data";
+import {vehicles, STATUS_COLORS} from "@/data";
 
 
 type Language = 'fr' | 'ar';
