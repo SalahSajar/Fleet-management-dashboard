@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect} from 'react';
+import React, { useState, useEffect} from 'react';
 
 import Link from "next/link";
 import {useSearchParams, usePathname} from "next/navigation";
@@ -14,9 +14,7 @@ import VehiclesNavigationBar from "@/components/fleet/VehiclesNavigationBar"
 import {vehicles, STATUS_COLORS} from "@/data";
 
 
-type Language = 'fr' | 'ar';
-type FilteingOptions = "all" | "available" | "rented" | "maintenance" | "overdue";
-const FilteingOptionsArr = ["all", "available", "rented", "maintenance", "overdue"];
+const FilteringOptionsArr = ["all", "available", "rented", "maintenance", "overdue"];
 
 
 const VEHICLES_PER_PAGE = 8;
@@ -29,15 +27,15 @@ export default function FleetPage(){
 	const statusParam = searchParams.get("status");
 	const pageParam = searchParams.get("page");
 
-	const [vehicleWithQuickOptionsBlockOpen, setVehicleWithQuickOptionsBlockOpen] = useState<string | null>(null);
+	const [vehicleWithQuickOptionsBlockOpen, setVehicleWithQuickOptionsBlockOpen] = useState(null);
 
-	const [activeFleetFilteringOption, setActiveFleetFilteringOption] = useState<FilteingOptions>("all");
-	const [activeFleetFilteringOption__Highlighter_Width, setActiveFleetFilteringOption__Highlighter_Width] = useState<number>(0);
-	const [activeFleetFilteringOption__Highlighter_Offset, setActiveFleetFilteringOption__Highlighter_Offset] = useState<number>(0);
+	const [activeFleetFilteringOption, setActiveFleetFilteringOption] = useState("all");
+	const [activeFleetFilteringOption__Highlighter_Width, setActiveFleetFilteringOption__Highlighter_Width] = useState(0);
+	const [activeFleetFilteringOption__Highlighter_Offset, setActiveFleetFilteringOption__Highlighter_Offset] = useState(0);
 
-	const [fleetOnTableDisplayView, setFleetOnTableDisplayView] = useState<boolean>(false);
+	const [fleetOnTableDisplayView, setFleetOnTableDisplayView] = useState(false);
 
-	const [language, setLanguage] = useState<Language>('fr');
+	const [language, setLanguage] = useState('fr');
 	// const t = TRANSLATIONS[language];
 
 
@@ -47,27 +45,35 @@ export default function FleetPage(){
 	const vehiclesOfThePage = activeFleetFilteringOption === "all" ? vehicles : vehicles.filter(v => v.status === activeFleetFilteringOption);
 
 	const totalPagesCount = Math.ceil(vehiclesOfThePage.length/VEHICLES_PER_PAGE);
-	const currentPage = isNaN(+pageParam) || +pageParam < 1 || +pageParam > totalPagesCount ? 1 : pageParam.includes(".") ? Math.floor(+pageParam) : +pageParam;
+	const currentPage = pageParam === null || isNaN(+pageParam) || +pageParam < 1 || +pageParam > totalPagesCount ? 1 : pageParam.includes(".") ? Math.floor(+pageParam) : +pageParam;
 
 	function detectActiveFleetFilteringOptionSpecs__FUNC(elm){
 		const activeOptionEl_SPECS = elm.getBoundingClientRect();
-		const filteringOptionsListEl__SPECS = elm.parentElement.getBoundingClientRect();
 
-		setActiveFleetFilteringOption__Highlighter_Width(Math.ceil(activeOptionEl_SPECS.width));
-		setActiveFleetFilteringOption__Highlighter_Offset(Math.ceil(activeOptionEl_SPECS.left - filteringOptionsListEl__SPECS.left));
+		if(elm && elm.parentElement){
+			const filteringOptionsListEl__SPECS = elm.parentElement.getBoundingClientRect();
+
+			console.log(filteringOptionsListEl__SPECS)
+			setActiveFleetFilteringOption__Highlighter_Width(Math.ceil(activeOptionEl_SPECS.width));
+			setActiveFleetFilteringOption__Highlighter_Offset(Math.ceil(activeOptionEl_SPECS.left - filteringOptionsListEl__SPECS.left));
+		}
 	}
 
 	function checkClickTagret__HANDLER(evt) {
 		const clickTarget = evt.target;
-		const activeVehicleQCB = document.querySelector(`.fleeVehicle__QUICK_CONTROLS__LIST[data-active=true]`);
-		const vehicleCardID = (activeVehicleQCB?.parentElement.parentElement.parentElement.parentElement)?.dataset.id
+		const vehicleCardWithOpenQCL = document.querySelector(`.fleetVehicle__CARD[data-openqcd=true]`);
 
-		if(activeVehicleQCB && vehicleWithQuickOptionsBlockOpen === vehicleCardID && !activeVehicleQCB?.contains(clickTarget)){
+		if(!vehicleCardWithOpenQCL) return;
+
+		const activeVehicleQCB = vehicleCardWithOpenQCL.querySelector(`.fleeVehicle__QUICK_CONTROLS__LIST`);
+		const vehicleCardID = vehicleCardWithOpenQCL.dataset.id;
+
+		if(vehicleCardID && vehicleWithQuickOptionsBlockOpen === vehicleCardID && !activeVehicleQCB?.contains(clickTarget)){
 			setVehicleWithQuickOptionsBlockOpen(null);
 		}
 	}
 
-	function formattingUrlQuery(page: string, status: string){
+	function formattingUrlQuery(page, status){
 		const params = new URLSearchParams(searchParams.toString());
 
 		if(page) {
@@ -76,7 +82,7 @@ export default function FleetPage(){
 		};
 		if(status) {
 			params.set("status", status);
-			params.set("page", 1);
+			params.set("page", "1");
 		}
 
 		return `${pathname}?${params.toString()}`;
@@ -89,8 +95,9 @@ export default function FleetPage(){
 	}, [activeFleetFilteringOption]);
 
 	useEffect(() => {
-		if(statusParam && FilteingOptionsArr.includes(statusParam.toLowerCase())){
-			setActiveFleetFilteringOption(statusParam.toLowerCase());
+		const curStateParam = !!statusParam && statusParam.toLowerCase();
+		if(curStateParam && FilteringOptionsArr.includes(curStateParam)){
+			setActiveFleetFilteringOption(curStateParam);
 		}
 	}, [])
 

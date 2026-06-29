@@ -10,17 +10,10 @@ import {
   LifeBuoy,
   LogOut,
 } from 'lucide-react'
+
 import { NAVIGATION } from '@/data'
 
-type Language = 'fr' | 'ar'
-
-interface SidebarProps {
-  language: Language
-  activeNavItem: string
-
-}
-
-const iconMap: Record<string, React.ElementType> = {
+const iconMap = {
   LayoutDashboard,
   Car,
   Calendar,
@@ -29,7 +22,7 @@ const iconMap: Record<string, React.ElementType> = {
   Settings,
 }
 
-export default function Sidebar({ language, activeNavItem }: SidebarProps) {
+export default function Sidebar({ language, activeNavItem }) {
 
   console.log("*** Active ID navigation Link")
   console.log(activeNavItem)

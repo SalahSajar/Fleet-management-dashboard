@@ -26,10 +26,8 @@ import {
   TRANSLATIONS,
 } from '@/data'
 
-type Language = 'fr' | 'ar'
-
 export default function DashboardPage() {
-  const [language, setLanguage] = useState<Language>('fr')
+  const [language, setLanguage] = useState('fr')
   const t = TRANSLATIONS[language]
 
   const displayVehicles = vehicles.slice(0, 4)

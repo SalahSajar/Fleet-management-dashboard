@@ -1,20 +1,12 @@
 import { MoreVertical } from 'lucide-react'
 
-interface BookingItemProps {
-  month: string
-  day: number
-  vehicleName: string
-  clientName: string
-  duration: string
-}
-
 export default function BookingItem({
   month,
   day,
   vehicleName,
   clientName,
   duration,
-}: BookingItemProps) {
+}) {
   return (
     <div className="flex items-center gap-4 py-3">
       {/* Date badge */}

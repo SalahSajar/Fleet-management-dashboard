@@ -15,7 +15,8 @@ export const VerticalVehicleCard = ({vehicleObj, vehicleWithOpenQCB, changeVehic
 	const activeQC = vehicleObj.id === vehicleWithOpenQCB;
 
 	return (
-		<li key={vehicleObj.id} data-id={vehicleObj.id} className="fleetVehicle__CARD rounded-2xl overflow-hidden bg-red-200">
+		// openQCD === Open Quick Controls Dropdown
+		<li key={vehicleObj.id} data-id={vehicleObj.id} data-openqcd={activeQC} className="fleetVehicle__CARD rounded-2xl overflow-hidden bg-red-200">
 			<div className="fleetVehicle_card__CONTENT_WRAPPER relative flex flex-col h-full bg-white">
 				{/* --- Fleet Vehicle Thumbnail --- */}
 				<div className="fleetVehicle_card__THUMBNAIL relative aspect-[16/10]">

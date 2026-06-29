@@ -3,16 +3,7 @@
 import Sidebar from './Sidebar'
 import Header from './Header'
 
-type Language = 'fr' | 'ar'
-
-interface LayoutProps {
-  children: React.ReactNode
-  language: Language
-  onLanguageChange: (lang: Language) => void
-  activeNavItem: string
-}
-
-export default function Layout({ children, language, onLanguageChange, activeNavItem}: LayoutProps) {
+export default function Layout({ children, language, onLanguageChange, activeNavItem}) {
   const year = new Date().getFullYear();
 
   return (

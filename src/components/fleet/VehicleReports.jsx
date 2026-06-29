@@ -4,8 +4,6 @@ import {TriangleAlert, CircleUserRound, User, CalendarSync} from "lucide-react";
 
 import {vehicleStatuses} from "@/data";
 
-// import {} from "lucide-react";
-
 export const MaintenanceReport = ({vehicleObj}) => {
 	
 	return (

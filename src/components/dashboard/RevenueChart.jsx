@@ -1,15 +1,5 @@
-interface BarData {
-  label: string
-  value: number
-  isToday?: boolean
-  isProjected?: boolean
-}
 
-interface RevenueChartProps {
-  data: BarData[]
-}
-
-export default function RevenueChart({ data }: RevenueChartProps) {
+export default function RevenueChart({ data }) {
   const maxValue = Math.max(...data.map((d) => d.value))
 
   return (

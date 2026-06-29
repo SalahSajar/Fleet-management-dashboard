@@ -1,38 +1,5 @@
-export type BookingStatus = 'active' | 'upcoming' | 'completed' | 'cancelled' | 'overdue'
-export type PaymentStatus = 'paid' | 'pending' | 'overdue'
-export type PaymentMethod = 'cash' | 'bank_transfer' | 'card'
 
-export interface Booking {
-  id: string
-  bookingRef: string
-  clientId: string
-  clientName: string
-  clientInitials: string
-  vehicleId: string
-  vehicleName: string
-  vehiclePlate: string
-  branch: string
-  startDate: string
-  endDate: string
-  duration: number
-  dailyRate: number
-  subtotal: number
-  deposit: number
-  total: number
-  status: BookingStatus
-  paymentStatus: PaymentStatus
-  paymentMethod: PaymentMethod
-  createdBy: string
-  createdAt: string
-  notes?: string
-  mileageAtPickup?: number
-  mileageAtReturn?: number
-  fuelAtPickup?: string
-  fuelAtReturn?: string
-  inspectionStatus?: string
-}
-
-export const bookings: Booking[] = [
+export const bookings = [
   {
     id: 'bk-001',
     bookingRef: '#BK-001',

@@ -1,42 +1,5 @@
-export interface DailyRevenue {
-  date: string
-  day: string
-  revenue: number
-  rentals: number
-  lastMonth: number
-}
 
-export interface VehicleRevenue {
-  vehicleId: string
-  vehicleName: string
-  plate: string
-  totalRentals: number
-  totalRevenue: number
-  avgPerRental: number
-  utilizationRate: number
-}
-
-export interface BranchRevenue {
-  branch: string
-  revenue: number
-  percentage: number
-  color: string
-}
-
-export interface PaymentMethodRevenue {
-  method: string
-  amount: number
-  percentage: number
-  color: string
-}
-
-export interface MonthlyRevenue {
-  month: string
-  revenue: number
-  rentals: number
-}
-
-export const dailyRevenue: DailyRevenue[] = [
+export const dailyRevenue = [
   { date: '01 Mai', day: 'Ven', revenue: 1400, rentals: 4, lastMonth: 1200 },
   { date: '02 Mai', day: 'Sam', revenue: 1800, rentals: 5, lastMonth: 1600 },
   { date: '03 Mai', day: 'Dim', revenue: 900, rentals: 3, lastMonth: 800 },
@@ -58,7 +21,7 @@ export const dailyRevenue: DailyRevenue[] = [
   { date: '19 Mai', day: 'Mar', revenue: 1700, rentals: 5, lastMonth: 1500 },
 ]
 
-export const vehicleRevenue: VehicleRevenue[] = [
+export const vehicleRevenue = [
   { vehicleId: 'v-002', vehicleName: 'Renault Clio', plate: '67890-B-2', totalRentals: 8, totalRevenue: 12400, avgPerRental: 1550, utilizationRate: 82 },
   { vehicleId: 'v-004', vehicleName: 'Dacia Duster', plate: '44556-D-4', totalRentals: 6, totalRevenue: 11400, avgPerRental: 1900, utilizationRate: 75 },
   { vehicleId: 'v-008', vehicleName: 'Hyundai Accent', plate: '45678-H-8', totalRentals: 7, totalRevenue: 9800, avgPerRental: 1400, utilizationRate: 70 },
@@ -67,20 +30,20 @@ export const vehicleRevenue: VehicleRevenue[] = [
   { vehicleId: 'v-005', vehicleName: 'Renault Kangoo', plate: '78901-E-5', totalRentals: 3, totalRevenue: 4800, avgPerRental: 1600, utilizationRate: 40 },
 ]
 
-export const branchRevenue: BranchRevenue[] = [
+export const branchRevenue = [
   { branch: 'Casablanca Hub', revenue: 18500, percentage: 44, color: '#f97316' },
   { branch: 'Casablanca Airport', revenue: 14200, percentage: 34, color: '#3b82f6' },
   { branch: 'Rabat Ville', revenue: 6800, percentage: 16, color: '#22c55e' },
   { branch: 'Marrakech Branch', revenue: 2850, percentage: 6, color: '#a855f7' },
 ]
 
-export const paymentMethodRevenue: PaymentMethodRevenue[] = [
+export const paymentMethodRevenue = [
   { method: 'Cash', amount: 27527, percentage: 65, color: '#f97316' },
   { method: 'Virement Bancaire', amount: 10587, percentage: 25, color: '#3b82f6' },
   { method: 'Carte Bancaire', amount: 4235, percentage: 10, color: '#22c55e' },
 ]
 
-export const monthlyRevenue: MonthlyRevenue[] = [
+export const monthlyRevenue = [
   { month: 'Déc 2025', revenue: 31200, rentals: 28 },
   { month: 'Jan 2026', revenue: 34500, rentals: 31 },
   { month: 'Fév 2026', revenue: 32800, rentals: 29 },

@@ -3,14 +3,7 @@
 import { Search, Bell } from 'lucide-react'
 import { APP_CONFIG } from '@/data'
 
-type Language = 'fr' | 'ar'
-
-interface HeaderProps {
-  language: Language
-  onLanguageChange: (lang: Language) => void
-}
-
-export default function Header({ language, onLanguageChange }: HeaderProps) {
+export default function Header({ language, onLanguageChange }) {
   return (
     <header className="h-16 bg-white border-b border-gray-200 flex items-center justify-between px-6">
       {/* Search */}

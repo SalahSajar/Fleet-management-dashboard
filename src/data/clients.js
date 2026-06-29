@@ -1,32 +1,5 @@
-export type LoyaltyTier = 'gold' | 'silver' | 'bronze' | 'new'
 
-export interface Client {
-  id: string
-  firstName: string
-  lastName: string
-  fullName: string
-  initials: string
-  phone: string
-  email: string
-  cin: string
-  address: string
-  dateOfBirth: string
-  clientSince: string
-  preferredBranch: string
-  loyaltyTier: LoyaltyTier
-  totalRentals: number
-  totalSpent: number
-  averageDuration: number
-  averageSpend: number
-  points: number
-  notes: string
-  lastRental: string
-  onTimeReturnRate: number
-  favoriteCar: string
-  favoriteBranch: string
-}
-
-export const clients: Client[] = [
+export const clients = [
   {
     id: 'c-001',
     firstName: 'Mohammed',

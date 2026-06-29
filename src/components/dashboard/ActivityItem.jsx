@@ -1,14 +1,5 @@
 import { ArrowUpRight, ArrowDownLeft } from 'lucide-react'
 
-interface ActivityItemProps {
-  type: 'outbound' | 'returned'
-  vehicleName: string
-  time: string
-  branch: string
-  detail: string
-  detailColor?: string
-}
-
 export default function ActivityItem({
   type,
   vehicleName,
@@ -16,7 +7,7 @@ export default function ActivityItem({
   branch,
   detail,
   detailColor = 'text-gray-600',
-}: ActivityItemProps) {
+}) {
   const isOutbound = type === 'outbound'
 
   return (

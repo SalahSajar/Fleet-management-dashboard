@@ -1,13 +1,4 @@
-import { LucideIcon } from 'lucide-react'
-
-interface MetricCardProps {
-  value: number
-  label: string
-  icon: LucideIcon
-  borderColor: string
-  iconBgColor: string
-  iconColor: string
-}
+// import { LucideIcon } from 'lucide-react'
 
 export default function MetricCard({
   value,
@@ -16,7 +7,7 @@ export default function MetricCard({
   borderColor,
   iconBgColor,
   iconColor,
-}: MetricCardProps) {
+}) {
   return (
     <div className={`bg-white rounded-xl p-5 border-l-4 ${borderColor} flex items-center justify-between shadow-sm`}>
       <div>

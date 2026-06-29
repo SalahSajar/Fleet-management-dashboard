@@ -1,21 +1,17 @@
 import Image from "next/image";
 
 import { MapPin, Wrench } from 'lucide-react';
-import { Vehicle, vehicleStatuses } from '@/data/vehicles';
+import { vehicleStatuses } from '@/data/vehicles';
 
-interface VehicleCardProps {
-  vehicle: Vehicle
-  language: 'fr' | 'ar'
-}
 
-// const statusConfig: Record<VehicleStatus, { label: string; labelAr: string; bg: string; text: string }> = {
+// const statusConfig = {
 //   available: { label: 'Available', labelAr: 'متاح', bg: 'bg-green-500', text: 'text-white' },
 //   rented: { label: 'Rented', labelAr: 'مؤجر', bg: 'bg-amber-100', text: 'text-amber-800' },
 //   maintenance: { label: 'Maintenance', labelAr: 'صيانة', bg: 'bg-red-500', text: 'text-white' },
 //   overdue: { label: '⚠ Overdue', labelAr: '⚠ متأخر', bg: 'bg-red-100', text: 'text-red-700' },
 // }
 
-export default function VehicleCard({ vehicle, language }: VehicleCardProps) {
+export default function VehicleCard({ vehicle, language }) {
 
   return (
     <div className="relative bg-white rounded-xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-md transition-shadow">

@@ -1,27 +1,5 @@
-export type VehicleStatus = 'available' | 'rented' | 'maintenance' | 'overdue'
 
-export interface Vehicle {
-  id: string
-  name: string
-  model: string
-  year: number
-  plate: string
-  status: VehicleStatus
-  branch: string
-  fuelType: string
-  mileage: number
-  lastService: string
-  nextServiceDue: string
-  insuranceExpiry: string
-  dailyRate: number
-  image: string
-  currentClient?: string
-  returnDate?: string
-  overdueBy?: number
-  maintenanceNote?: string
-}
-
-export const vehicles: Vehicle[] = [
+export const vehicles = [
   {
     id: 'v-001',
     name: 'Dacia Logan',
